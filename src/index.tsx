@@ -3,10 +3,21 @@ import * as ReactDOM from "react-dom";
 // import App from "./App";
 import "./index.css";
 import registerServiceWorker from "./registerServiceWorker";
-// import { Hello } from "./Hello";
-import StatefulHello from "./components/StatefulHello";
+import Hello from "./containers/Hello";
+import { Provider } from "react-redux";
 
-ReactDOM.render(<StatefulHello name="Josh" />, document.getElementById(
-    "root"
-) as HTMLElement);
+import { createStore } from "redux";
+import { enthusiasm } from "./reducers/index";
+
+const store = createStore(enthusiasm, {
+    enthusiasmLevel: 1,
+    languageName: "TypeScript"
+});
+
+ReactDOM.render(
+    <Provider store={store}>
+        <Hello />
+    </Provider>,
+    document.getElementById("root") as HTMLElement
+) as HTMLElement;
 registerServiceWorker();
